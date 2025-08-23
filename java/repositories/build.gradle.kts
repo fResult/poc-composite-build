@@ -28,8 +28,8 @@ dependencies {
   implementation("com.fResult:entities:0.0.1-SNAPSHOT")
 
   api("org.springframework.boot:spring-boot-starter-data-r2dbc")
+  api("com.h2database:h2")
 
-  runtimeOnly("com.h2database:h2")
   runtimeOnly("io.r2dbc:r2dbc-h2")
 
   testImplementation("org.springframework.boot:spring-boot-starter-test")
