@@ -1,4 +1,4 @@
-package com.fresult.services.routers
+package com.fresult.api.routers
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

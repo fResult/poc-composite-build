@@ -1,4 +1,4 @@
-package com.fresult.services
+package com.fresult.api
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
