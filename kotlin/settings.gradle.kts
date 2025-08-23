@@ -1,4 +1,4 @@
 rootProject.name = "kotlin"
 
-include("entities")
-include("api")
+includeBuild("entities")
+includeBuild("api")
