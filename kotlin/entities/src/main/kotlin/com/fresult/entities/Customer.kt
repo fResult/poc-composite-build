@@ -1,3 +1,7 @@
 package com.fresult.entities
 
-data class Customer(val id: Long?, val fullName: String)
+import org.springframework.data.annotation.Id
+import org.springframework.data.relational.core.mapping.Table
+
+@Table("customers")
+data class Customer(@Id val id: Long?, val fullName: String)
