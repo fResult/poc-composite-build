@@ -5,7 +5,7 @@ plugins {
   id("io.spring.dependency-management") version "1.1.7"
 }
 
-group = "com.fResult"
+group = "com.fresult"
 version = "0.0.1-SNAPSHOT"
 
 java {
@@ -19,8 +19,9 @@ repositories {
 }
 
 dependencies {
-  implementation("com.fResult:entities:0.0.1-SNAPSHOT")
-  implementation("com.fResult:repositories:0.0.1-SNAPSHOT")
+  implementation("com.fresult:entities:0.0.1-SNAPSHOT")
+  implementation("com.fresult:models:0.0.1-SNAPSHOT")
+  implementation("com.fresult:repositories:0.0.1-SNAPSHOT")
   implementation("org.springframework.boot:spring-boot-starter-webflux")
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
   implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")

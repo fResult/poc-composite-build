@@ -3,7 +3,7 @@ plugins {
   id("java-library")
 }
 
-group = "com.fResult"
+group = "com.fresult"
 version = "0.0.1-SNAPSHOT"
 description = "entities"
 

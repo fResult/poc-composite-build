@@ -4,7 +4,7 @@ plugins {
   id("io.spring.dependency-management") version "1.1.7"
 }
 
-group = "com.fResult"
+group = "com.fresult"
 version = "0.0.1-SNAPSHOT"
 description = "repositories"
 
@@ -25,7 +25,7 @@ dependencyManagement {
 }
 
 dependencies {
-  implementation("com.fResult:entities:0.0.1-SNAPSHOT")
+  implementation("com.fresult:entities:0.0.1-SNAPSHOT")
 
   api("org.springframework.boot:spring-boot-starter-data-r2dbc")
   api("com.h2database:h2")
