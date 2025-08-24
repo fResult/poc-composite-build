@@ -1,25 +1,29 @@
 package com.fresult.api.routers
 
+import com.fresult.api.handlers.CustomerHandler
 import com.fresult.models.CustomerResponse
 import com.fresult.repositories.CustomerRepository
-import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.reactive.awaitSingle
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.web.reactive.function.server.*
+import org.springframework.web.reactive.function.server.RouterFunction
+import org.springframework.web.reactive.function.server.ServerResponse
+import org.springframework.web.reactive.function.server.bodyValueAndAwait
+import org.springframework.web.reactive.function.server.coRouter
 
 @Configuration
-class CustomerRouter(private val customerRepository: CustomerRepository) {
+class CustomerRouter(
+  private val handler: CustomerHandler,
+  private val repository: CustomerRepository,
+) {
   @Bean
   fun routes(): RouterFunction<ServerResponse> = coRouter {
     "/customers".nest {
-      GET("") { request ->
-        ServerResponse.ok().bodyAndAwait(customerRepository.findAll().map(CustomerResponse::fromEntity).asFlow())
-      }
+      GET("", handler::all)
 
       GET("/{id}") { request ->
         val id = request.pathVariable("id").toLong()
-        customerRepository.findById(id)
+        repository.findById(id)
           .map(CustomerResponse::fromEntity)
           .flatMap(ServerResponse.ok()::bodyValue)
           .awaitSingle()
