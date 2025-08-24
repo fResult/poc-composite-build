@@ -1,9 +1,7 @@
 package com.fresult.api.routers
 
 import com.fresult.api.handlers.CustomerHandler
-import com.fresult.models.CustomerResponse
 import com.fresult.repositories.CustomerRepository
-import kotlinx.coroutines.reactive.awaitSingle
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.reactive.function.server.RouterFunction
@@ -20,14 +18,7 @@ class CustomerRouter(
   fun routes(): RouterFunction<ServerResponse> = coRouter {
     "/customers".nest {
       GET("", handler::all)
-
-      GET("/{id}") { request ->
-        val id = request.pathVariable("id").toLong()
-        repository.findById(id)
-          .map(CustomerResponse::fromEntity)
-          .flatMap(ServerResponse.ok()::bodyValue)
-          .awaitSingle()
-      }
+      GET("/{id}", handler::byId)
 
       POST("") { request ->
         ServerResponse.ok().bodyValueAndAwait("Customer created")
