@@ -10,19 +10,13 @@ import org.springframework.web.reactive.function.server.bodyValueAndAwait
 import org.springframework.web.reactive.function.server.coRouter
 
 @Configuration
-class CustomerRouter(
-  private val handler: CustomerHandler,
-  private val repository: CustomerRepository,
-) {
+class CustomerRouter(private val handler: CustomerHandler) {
   @Bean
   fun routes(): RouterFunction<ServerResponse> = coRouter {
     "/customers".nest {
       GET("", handler::all)
       GET("/{id}", handler::byId)
-
-      POST("") { request ->
-        ServerResponse.ok().bodyValueAndAwait("Customer created")
-      }
+      POST("", handler::create)
 
       PATCH("/{id}") { request ->
         val id = request.pathVariable("id")

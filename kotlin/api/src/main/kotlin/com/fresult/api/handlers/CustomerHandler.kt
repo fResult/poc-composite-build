@@ -1,5 +1,6 @@
 package com.fresult.api.handlers
 
+import com.fresult.models.CustomerCreationRequest
 import com.fresult.models.CustomerResponse
 import com.fresult.repositories.CustomerRepository
 import kotlinx.coroutines.flow.Flow
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.bodyAndAwait
+import org.springframework.web.reactive.function.server.bodyToMono
 
 @Component
 class CustomerHandler(private val repository: CustomerRepository) {
@@ -21,6 +23,14 @@ class CustomerHandler(private val repository: CustomerRepository) {
   suspend fun byId(request: ServerRequest): ServerResponse =
     request.pathVariable("id").toLong()
       .let(repository::findById)
+      .map(CustomerResponse::fromEntity)
+      .flatMap(ServerResponse.ok()::bodyValue)
+      .awaitSingle()
+
+  suspend fun create(request: ServerRequest): ServerResponse =
+    request.bodyToMono(CustomerCreationRequest::class.java)
+      .map(CustomerCreationRequest::toEntity)
+      .flatMap(repository::save)
       .map(CustomerResponse::fromEntity)
       .flatMap(ServerResponse.ok()::bodyValue)
       .awaitSingle()
